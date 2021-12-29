@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app-deploy
+  labels:
+    name: flask-app-deploy
+    app: flask-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels: # Labels from voting-app-pod.yml
+      name: flask-app-pods
+      app: flask-app
+  template: # Everything from metadata to the end from voting-app-pod.yml
+    metadata:
+      name: flask-app-pod
+      labels:
+        name: flask-app-pods
+        app: flask-app
+    spec:
+      containers:
+        - name: flask-app
+          image: flask-app
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5000

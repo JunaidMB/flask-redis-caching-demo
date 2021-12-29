@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  flask:
+    build:
+      context: flask
+    depends_on: 
+      - redis
+    ports:
+      - "5000:5000"
+  
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
